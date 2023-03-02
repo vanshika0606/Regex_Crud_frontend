@@ -43,5 +43,5 @@
   "devDependencies": {
     "tailwindcss": "^3.2.7"
   },
-  "proxy": "http://localhost:4000"
+  "proxy": "https://regex-backend.onrender.com/"
 }

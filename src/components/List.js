@@ -23,7 +23,7 @@ const List = () => {
   const { UpdateId, UpdateValue , OpenUpdate, ApplyButton} = bindActionCreators(actionCreators, dispatch);
 
   const fetchData = async () => {
-    await fetch("http://localhost:3000/read")
+    await fetch("https://regex-backend.onrender.com/read")
       .then(async (res) => {
         return await res.json();
       })
@@ -34,7 +34,7 @@ const List = () => {
   };
 
   const delExpression = async (id) => {
-    fetch("http://localhost:3000/delete/" + id, {
+    fetch("https://regex-backend.onrender.com/delete/" + id, {
       method: "DELETE",
     });
 

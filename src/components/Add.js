@@ -28,7 +28,7 @@ const Add = () => {
   const AddRege = async () => {
     
 
-    const res = await fetch("http://localhost:3000/create", {
+    const res = await fetch("https://regex-backend.onrender.com/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

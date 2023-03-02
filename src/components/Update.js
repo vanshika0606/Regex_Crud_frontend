@@ -31,7 +31,7 @@ const Update = () => {
 
         e.preventDefault();
 
-     const res=  await fetch(`http://localhost:3000/update/${updateId}`, {
+     const res=  await fetch(`https://regex-backend.onrender.com/update/${updateId}`, {
             method:"PUT",
             headers:{
               "Content-Type": "application/json"
