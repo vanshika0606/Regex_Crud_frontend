@@ -1,9 +1,9 @@
 
-export const ReadData = (url) =>{
+export const ReadData = () =>{
 
     return async(dispatch)=>{
         
-        const data= await fetch(url)
+        const data= await fetch("https://regex-backend.onrender.com/read")
         .then(async (res) => {
             return res.json();
         }).then(async (d) => {

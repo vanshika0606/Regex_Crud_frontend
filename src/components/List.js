@@ -29,7 +29,7 @@ const List = () => {
 
   useEffect(() => {
 
-    ReadData("https://regex-backend.onrender.com/read")
+    ReadData()
     
   }, [del, show, one, update]);
 
