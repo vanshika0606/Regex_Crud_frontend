@@ -1,15 +1,13 @@
-const isValid = ( expression)=>{
-    var isValid=true
+const isValid = (expression) => {
+  var isValid = true;
 
-    try{
-        new RegExp(expression)
-    }
-    catch(e){
-        isValid=false
-    }
+  try {
+    new RegExp(expression);
+  } catch (e) {
+    isValid = false;
+  }
 
-    return isValid;
-
-}
+  return isValid;
+};
 
 export default isValid;

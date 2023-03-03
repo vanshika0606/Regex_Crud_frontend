@@ -7,65 +7,45 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index.js";
-import {useSelector} from "react-redux"
-
-
+import { useSelector } from "react-redux";
 
 const Add = () => {
+  var show = useSelector((state) => state.show);
 
-  var show= useSelector((state)=>state.show)
- 
   const [expression, setExpression] = useState("");
 
   const dispatch = useDispatch();
 
-  const { ShowList } = bindActionCreators(actionCreators, dispatch);
+  const { ShowList, AddData } = bindActionCreators(actionCreators, dispatch);
 
   const handleInput = async (e) => {
     setExpression(e.target.value);
   };
 
   const AddRege = async () => {
-    
-
-    const res = await fetch("https://regex-backend.onrender.com/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        expression,
-      }),
-    });
+    await AddData(expression);
 
     setExpression("");
-    
-    ShowList(show)
+
+    ShowList(show);
   };
 
   const ErrorExpre = (e) => {
     e.preventDefault();
-    if (isValid(expression) && expression!=='') {
+    if (isValid(expression) && expression !== "") {
       AddRege();
       toast.success("Added to the list !");
     } else {
-
-      if(expression==""){
-
-        toast.error("Enter Expression")
-
-      }else{
-
+      if (expression == "") {
+        toast.error("Enter Expression");
+      } else {
         toast.error("Can't add invalid expression to the list !");
       }
     }
   };
 
-  
-
   return (
     <div className="flex justify-center ">
-      
       <form method="post" className="w-full">
         <div className="flex  justify-center items-center">
           <input

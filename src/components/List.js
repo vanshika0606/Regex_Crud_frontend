@@ -7,42 +7,37 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index.js";
 
-
-
 const List = () => {
-  // const [data, setData] = useState([]);
   const [one, setOne] = useState(true);
 
-  const [del, setDel] = useState(false);
-  const dispatch= useDispatch()
+  const dispatch = useDispatch();
 
   var show = useSelector((state) => state.show);
-  var update= useSelector((state)=> state.updateButton)
-  var result= useSelector((state)=>state.result)
+  var update = useSelector((state) => state.updateButton);
+  var result = useSelector((state) => state.result);
 
-  var data = useSelector((state)=> state.data)
+  var data = useSelector((state) => state.data);
 
-  const { UpdateId, UpdateValue , OpenUpdate, ApplyButton, ReadData} = bindActionCreators(actionCreators, dispatch);
+  const {
+    UpdateId,
+    UpdateValue,
+    OpenUpdate,
+    ApplyButton,
+    ReadData,
+    DeleteData,
+  } = bindActionCreators(actionCreators, dispatch);
 
- 
-
-
-  useEffect(() => {
-
-    ReadData()
-    
-  }, [del, show, one, update]);
+  const [del, setDel] = useState(true);
 
   const delExpression = async (id) => {
-   await fetch("https://regex-backend.onrender.com/delete/" + id, {
-      method: "DELETE",
-    });
-
-    setDel(!del);
+    await DeleteData(id);
     toast.success("Expression deleted successfully!");
+    setDel(!del);
   };
 
-  
+  useEffect(() => {
+    ReadData();
+  }, [del, show, update]);
 
   return (
     <div className="w-full justify-center flex mt-4 flex-col">
@@ -55,35 +50,28 @@ const List = () => {
                 key={i}
               >
                 {d.expression}
+
                 <div className="flex items-center text-xl cursor-pointer">
-                  <FaEdit className=" ml-2 mr-4"
-
-                  onClick={
-                    ()=>{
-                      
-                    UpdateId(d._id)
-                    UpdateValue(d.expression)
-                    OpenUpdate(true)
-                    
-                   
-                    }
-                  }
-
-                   />
+                  <FaEdit
+                    className=" ml-2 mr-4"
+                    onClick={() => {
+                      UpdateId(d._id);
+                      UpdateValue(d.expression);
+                      OpenUpdate(true);
+                    }}
+                  />
                   <AiTwotoneDelete
                     onClick={() => {
                       delExpression(d._id);
                     }}
                   />
 
-                  <button className="ml-5 text-lg py-1 px-2 bg-cyan-300 rounded-xl mr-2 hover:bg-cyan-200"
-                  onClick={
-                    ()=>{
-                      UpdateValue(d.expression)
-                      ApplyButton(true)
-
-                    }
-                  }
+                  <button
+                    className="ml-5 text-lg py-1 px-2 bg-cyan-300 rounded-xl mr-2 hover:bg-cyan-200"
+                    onClick={() => {
+                      UpdateValue(d.expression);
+                      ApplyButton(true);
+                    }}
                   >
                     Apply
                   </button>
@@ -93,9 +81,11 @@ const List = () => {
           })}
       </ul>
 
-      { result!=''  && <div className="text-lg mt-5 bg-slate-300 py-3 px-3 font-bold">
-            {result}
-      </div>}
+      {result != "" && (
+        <div className="text-lg mt-5 bg-slate-300 py-3 px-3 font-bold">
+          {result}
+        </div>
+      )}
     </div>
   );
 };
