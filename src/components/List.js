@@ -10,42 +10,39 @@ import { actionCreators } from "../state/index.js";
 
 
 const List = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [one, setOne] = useState(true);
 
-  const [del, setDel] = useState(0);
+  const [del, setDel] = useState(false);
   const dispatch= useDispatch()
 
   var show = useSelector((state) => state.show);
   var update= useSelector((state)=> state.updateButton)
   var result= useSelector((state)=>state.result)
 
-  const { UpdateId, UpdateValue , OpenUpdate, ApplyButton} = bindActionCreators(actionCreators, dispatch);
+  var data = useSelector((state)=> state.data)
 
-  const fetchData = async () => {
-    await fetch("https://regex-backend.onrender.com/read")
-      .then(async (res) => {
-        return await res.json();
-      })
-      .then(async (d) => {
-        setOne(1);
-        setData(d.Reg);
-      });
-  };
+  const { UpdateId, UpdateValue , OpenUpdate, ApplyButton, ReadData} = bindActionCreators(actionCreators, dispatch);
+
+ 
+
+
+  useEffect(() => {
+
+    ReadData("https://regex-backend.onrender.com/read")
+    
+  }, [del, show, one, update]);
 
   const delExpression = async (id) => {
-    fetch("https://regex-backend.onrender.com/delete/" + id, {
+   await fetch("https://regex-backend.onrender.com/delete/" + id, {
       method: "DELETE",
     });
 
-    toast.success("Expression deleted successfully!");
     setDel(!del);
+    toast.success("Expression deleted successfully!");
   };
 
-  useEffect(() => {
-    fetchData();
-    
-  }, [show, one, del, update]);
+  
 
   return (
     <div className="w-full justify-center flex mt-4 flex-col">

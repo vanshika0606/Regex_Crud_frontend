@@ -5,7 +5,8 @@ const state= INITIAL_STATE={
     updateValue:'',
     updateButton:false,
     apply:false,
-    result:''
+    result:'',
+    data:[]
 }
 
 const reducer = (state=INITIAL_STATE, action)=>{
@@ -47,6 +48,19 @@ const reducer = (state=INITIAL_STATE, action)=>{
         return{
             ...state,
             result:action.payload
+        }
+    }
+    else if(action.type=='data_success'){
+
+        return {
+            ...state,
+            data:action.payload
+        }
+    }
+    else if( action.type=="expression_delete"){
+
+        return {
+            ...state
         }
     }
     else{

@@ -1,3 +1,23 @@
+
+export const ReadData = (url) =>{
+
+    return async(dispatch)=>{
+        
+        const data= await fetch(url)
+        .then(async (res) => {
+            return res.json();
+        }).then(async (d) => {
+            return d
+        });
+
+        dispatch({
+            type:'data_success',
+            payload: data.Reg
+        })
+    }
+}
+
+
 export const ShowList = (show)=>{
 
     return (dispatch)=>{
